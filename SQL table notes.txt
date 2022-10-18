@@ -1,0 +1,100 @@
+
+The following files contains various commands used to generate and manipulate data in MySQL database
+
+creating a table in SQL 
+
+Create table users (
+id int(11) PRIMARY KEY AUTO_INCREMENT,
+username VARCHAR(255) NOT NULL 
+password VARCHAR (255) NOT NULL
+
+);
+
+//create clients table 
+CREATE TABLE Client (
+    client_id int(10) NOT null PRIMARY KEY AUTO_INCREMENT,
+    firstname VARCHAR(255),
+    lastname VARCHAR(255),
+    adddress VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(255),
+    phone_number INT(15),
+    email VARCHAR(255),
+    age int(3)
+    
+);
+
+//create events table 
+CREATE TABLE events_p(
+    event_id INT NOT Null PRIMARY KEY AUTO_INCREMENT,
+    eventtype VARCHAR(255),
+    eventdate DATE
+);
+
+//creating values table 
+CREATE TABLE Venue(
+    venue_id INT NOT Null PRIMARY KEY AUTO_INCREMENT,
+    address VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(2),
+    ammenities VARCHAR(255)
+
+);
+
+
+//creating cost table 
+CREATE TABLE Cost(
+    cost_id INT NOT Null PRIMARY KEY AUTO_INCREMENT,
+    costhour float,
+    totalamount float
+    
+); 
+
+//create booking (main) table 
+CREATE TABLE Booking (
+    booking_id INT NOT Null PRIMARY KEY AUTO_INCREMENT,
+    eventtype VARCHAR(255),
+    hours INT(4),
+    client_id INT,
+    FOREIGN KEY (client_id) REFERENCES Client(client_id),
+    cost_id INT,
+    FOREIGN KEY (cost_id) REFERENCES Cost(cost_id),
+    event_id INT,
+    FOREIGN KEY (event_id) REFERENCES events_p(event_id),
+    venue_id INT,
+    FOREIGN KEY (venue_id) REFERENCES Venue(venue_id)
+);
+
+//add column in a table after specific column 
+ALTER TABLE `Booking` ADD `venue` VARCHAR(255) NOT NULL AFTER `email`;
+
+//commands used to insert data into tables 
+
+INSERT INTO Client firstname, lastname,email,venue,address,city,state,zipcode,age,phonenumber 
+      VALUES '$firstName','$lastName','$Email','$venueName','$street','$city','$state','$zip','$age','$phoneNumber'";
+      mysqli_query($conn,$sql);
+  
+       INSERT INTO Booking firstname, lastname,email,eventtype,hours,date,starttime 
+      VALUES '$firstName','$lastName','$Email','$eventType','$hours','$eventDate','$eventtimestart';
+      
+  
+      INSERT INTO Cost costhour, totalamount
+      VALUES '$hours','$total_Amount';
+      
+  
+     INSERT INTO events_p eventtype, eventdate 
+      VALUES ('$eventType','$eventDate';
+      
+  
+      INSERT INTO Venue venuename, address, city, state,zipcode   
+      VALUES '$venueName','$vstreet','$vcity','$vstate','$vzipcode';
+
+// command to read and extract data from Booking table
+SELECT * FROM Booking WHERE firstname ='$firstname' AND lastname = '$lastname' AND email = '$email';
+
+// Command to delete a record 
+DELETE FROM Booking WHERE booking_id = $id; 
+
+
+     
+

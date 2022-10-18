@@ -1,0 +1,63 @@
+?php
+                $firstName = "";
+                $lastName = ""; 
+                $email = "";
+                
+                if (isset($_POST['retrieve'])) {     // if Get Booking is clicked 
+                    
+                    if (empty($_POST['first_name'])|| empty($_POST['last_name'])|| empty($_POST['email'])) {
+                        echo '<br>';
+                        echo "PLEASE FILL IN MISSING FIELDS";
+                        
+                        
+
+                    } else {
+                        $firstName = $_POST['first_name'];
+                        $lastName = $_POST['last_name'];
+                        $email = $_POST['email'];
+
+                        $sql = "SELECT * FROM Booking WHERE firstname = '$firstName' AND lastname = '$lastName' 
+                                AND email = '$email'";
+                        $result = mysqli_query($conn,$sql);
+                        $resultcheck = mysqli_num_rows($result);
+                        //echo $resultcheck;
+                     ?>
+                       
+                    <table>
+                        <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Email</th>
+                            <th>Venue</th>
+                            <th>Event</th>
+                            <th>Date</th>
+                            <th>Start time</th>
+                            <th>Length(h)</th>
+
+                        </tr>
+             <?php
+                if ($resultcheck > 0) {
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo "<tr><form action = 'manageupdate.php' method = POST>";
+                        echo "<td><input type=text name = fname value = '".$row['firstname']."'></td> ";
+                        echo "<td><input type=text name = lname value = '".$row['lastname']."'></td> ";
+                        echo "<td><input type=text name = e_mail value = '".$row['email']."'></td> ";
+                        echo "<td><input readonly type=text name = venue value = '".$row['venue']."'></td> ";
+                        echo "<td><input type=text name = eventtype value = '".$row['eventtype']."'></td> ";
+                        echo "<td><input type=date name = date value = '".$row['date']."'></td> ";
+                        echo "<td><input type=time name = time value = '".$row['starttime']."'></td> ";
+                        echo "<td><input type=number name = hours value = '".$row['hours']."'></td> ";
+                        echo "<td><input type=hidden name = primkey value = '".$row['booking_id']."'></td> ";
+                        echo "<td><input type=submit name = update value = Update></td> ";
+                        //echo "<td><input type=submit name = delete value = Delete></td> ";
+
+                       echo "<br>";
+                       echo "what now?";
+                        
+                    }
+                }
+            }
+        }
+
+            ?> 
+            
